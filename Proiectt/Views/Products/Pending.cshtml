@@ -1,0 +1,15 @@
+﻿@if (TempData["message"] != null)
+{
+    <div class="alert @ViewBag.Alert p-3 rounded-3 text-center mb-5">
+        @ViewBag.Message
+    </div>
+}
+
+@foreach (Proiect.Models.Product Produs in ViewBag.Products)
+{
+    <div class="card" style="padding:1em;">
+        @Html.Partial("_ProductInfo", Produs)
+        <a href="/Products/Show/@Produs.Id" class="btn btn-success" style="width:18rem;margin:auto">Evalueaza Cererea</a>
+        <br />
+    </div>
+}

@@ -1,0 +1,95 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+
+/* sa nu apara mesajele de validare de la inceput, ci dupa ce incerci sa bagi ceva si e gresit*/
+.field-validation-valid {
+    display: none;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+
+/*  style the nav*/
+.navbar {
+    background-color: #dfe6e9 !important;
+ 
+    border: none !important;
+    box-shadow: 0 3px 12px #636e72 !important;
+}
+
+a.nav-link {
+    color: #fab1a0 !important;
+}
+
+
+    a.nav-link:hover {
+        color: #fd79a8 !important;
+        border-bottom: 1px solid red;
+        font-weight: bold;
+    }
+
+.logoutbtn {
+    color: #fab1a0 !important;
+}
+
+    .logoutbtn:hover {
+        color: #fd79a8 !important;
+        border-bottom: 1px solid red;
+        font-weight: bold;
+    }
+
+.note-editor .dropdown-toggle::after {
+    display: none;
+}
+
+.font-logo {
+    font-family: 'Permanent Marker', cursive;
+}
+
+    .font-logo:hover {
+        color: #00b894 !important;
+    }
+
+.footer-position {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #ffffff;
+    text-align: center;
+    box-shadow: 0 3px 12px #636e72;
+}
+
+a{
+    text-decoration: none;
+}
+
+.btn-sort {
+    padding: 3rem;
+    color: #333;
+    font-size: 1.2rem;
+    margin: 2rem 0 0 2rem;
+}
+
+*{
+    font-size: 1.1rem !important;
+}

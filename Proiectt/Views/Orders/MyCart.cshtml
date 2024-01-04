@@ -1,0 +1,41 @@
+﻿@model Proiect.Models.Order
+
+<div class="row">
+    <div class="col-12">
+        <br />
+        <br />
+        <h2 class=" font-weight-bold mb-4" style="font-size: 1.5rem !important; color: orange; text-decoration: underline;">Produsele din costul dumeavoastra:</h2>
+
+        <br /><br />
+    </div>
+
+    @if (Model.ProductOrders != null && Model.ProductOrders.Any())
+    {
+        @foreach (Proiect.Models.ProductOrder productOrder in Model.ProductOrders)
+        {
+            <div class="col-12">
+                <div class="card" style="width: 100%;">
+                    <div class="card-body">
+                        @Html.Partial("_ProductInfo", productOrder.Product)
+                        <br>
+                        <form method="post" asp-action="DeleteProduct" asp-controller="Orders">
+                            <input type="hidden" name="Id" value="@productOrder.Id">
+                            <input type="hidden" name="OrderId" value="@productOrder.OrderId">
+                            <input type="hidden" name="ProductId" value="@productOrder.ProductId">
+                            <input type="hidden" name="returnUrl" value="/Orders/MyCart">
+                            <button class="btn btn-danger" type="submit" >Sterge Produsul</button> 
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <a class="btn btn-success" href="/Orders/Order"> Cumpara produsele</a>
+    }
+    else
+    {
+        <div class="col-12">
+            <p style="color: red;">Coșul este gol.</p>
+        </div>
+    }
+</div>

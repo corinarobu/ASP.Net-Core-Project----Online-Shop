@@ -1,0 +1,39 @@
+﻿<br />
+<br />
+
+<div class="row">
+    @foreach (var user in ViewBag.UsersList)
+    {
+        <div class="col-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"><i class="bi bi-person"></i> UserName: @user.UserName</h5>
+                    <p class="card-text"><i class="bi bi-envelope"></i> Email utilizator: @user.Email</p>
+
+                    @if (!string.IsNullOrEmpty(user.FirstName))
+                    {
+                        <p class="card-text"><i class="bi bi-person"></i> Nume utilizator: @user.FirstName</p>
+                    }
+
+                    @if (!string.IsNullOrEmpty(user.LastName))
+                    {
+                        <p class="card-text"><i class="bi bi-person"></i> Prenume utilizator: @user.LastName</p>
+                    }
+
+                    @if (!string.IsNullOrEmpty(user.PhoneNumber))
+                    {
+                        <p class="card-text"><i class="bi bi-phone"></i> Telefon utilizator: @user.PhoneNumber</p>
+                    }
+
+                    <div class="mt-auto d-flex justify-content-between">
+                        <a class="btn btn-sm btn-success" href="/Users/Edit/@user.Id"> Editare utilizator</a>
+                        <a class="btn btn-sm btn-success" href="/Users/Show/@user.Id"> Vizualizare utilizator</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<br />
+<br />

@@ -1,0 +1,55 @@
+﻿<br />
+<br />
+
+@{
+    bool modificare = false;
+}
+
+<br />
+
+@if (TempData["message"] != null)
+{
+    <div class="alert @ViewBag.Alert p-3 rounded-3 text-center mb-5">
+        @ViewBag.Message
+    </div>
+}
+
+<br />
+
+<div class="row">
+    @foreach (Proiect.Models.Order order in ViewBag.Orders)
+    {
+        <div class="col-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <p> Data comenzii: @order.Date</p>
+                    <br>
+                    <span style="font-weight: bold"> Cost  =  <span style="color: orange">@order.Price RON</span> </span>
+                    <br>
+                    @if (ViewBag.EsteAdmin)
+                    {
+                        <div><i class="bi bi-person"> Creat de: </i> @order.User.UserName </div>
+                    }
+                    <br />
+                    <a class="btn alert-success" href="/Orders/Show/@order.OrderId">Afisare Comanda</a>
+                </div>
+            </div>
+        </div>
+        modificare = true;
+    }
+
+    @if (modificare == false)
+    {
+        <div class="col-12">
+            <p>Nu există încă istoric de comenzi. 😔</p>
+            <a class="btn btn-success" href="/Products/Index">Începe cumpărăturile</a>
+        </div>
+    }
+    else
+    {
+        <div class="col-12">
+            <p>Îți mulțumim pentru comenzile plasate! 🎉</p>
+        </div>
+    }
+
+</div>

@@ -1,0 +1,62 @@
+﻿@model Proiect.Models.Order
+
+
+@if (TempData["message"] != null)
+{
+    <div class="alert @ViewBag.Alert p-3 rounded-3 text-center mb-5">
+        @ViewBag.Message
+    </div>
+}
+
+
+
+<div class="row">
+
+    <div class="col-12">
+        <h2>Data ordin: @Model.Date</h2>
+        <h2>Pretul Comenzii: @Model.Price</h2>
+        @if (ViewBag.EsteAdmin)
+        {
+             <h6> Utilizatorul : @Model.User</h6>      
+        }
+
+        <br />
+        <br />
+       <h2 class="text-center font-weight-bold mb-4" style="font-size: 2rem !important; color: orange; text-decoration: underline;">Afisare produse</h2>
+
+        <br /><br />
+    </div>
+
+    @if (Model.ProductOrders.Count > 0)
+    {
+        @foreach (Proiect.Models.ProductOrder productOrder in Model.ProductOrders)
+        {
+            <div class="col-12">
+                <div class="card" style="width: 100%;">
+
+                    <div class="card-body">
+
+                        @Html.Partial("_ProductInfo", productOrder.Product)
+                        @if (ViewBag.EsteAdmin)
+                        {
+                            <br>
+                            <form method="post" asp-action="DeleteProduct" asp-controller="Orders">
+                                <input type="hidden" name="Id" value="@productOrder.Id">
+                                <input type="hidden" name="OrderId" value="@productOrder.OrderId">
+                                <input type="hidden" name="ProductId" value="@productOrder.ProductId">
+                                <input type="hidden" name="returnUrl" value="/Orders/show/@Model.OrderId"> 
+                                <button class="btn btn-danger" type="submit">Returneaza Produsul</button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+    else
+    {
+        <p style="color: red; font-size: 1.4rem !important">Toate produsele din aceasta comanda au fost returnate 😢</p>
+    }
+
+</div>

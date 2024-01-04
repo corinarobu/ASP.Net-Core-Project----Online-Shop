@@ -1,0 +1,58 @@
+﻿@model Proiect.Models.Product
+
+
+
+@if (Model != null)
+{
+
+
+        <div class="row no-gutters">
+        <h5 class="card-title text-center" style="font-size: 2rem !important; text-decoration: underline; letter-spacing: 2px; padding: 1rem; color: green;">@Model.Title</h5>
+            <div class="col-md-6">
+                <img class="card-img" src="@Model.Photo" alt="Nu s-a găsit imaginea" style="width: 100%; max-width: 300px; margin: 0 auto; color:red">
+
+                <div style="padding: 1rem;">
+                    <p class="card-text">@Model.Description</p>
+                    <p class="card-text">Pretul produsului: <span style="font-weight:bolder">@Model.Price RON</span></p>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between  mt-3" style="flex-direction:column">
+                        <div><i class="bi bi-person"></i> @Model.ApplicationUser?.UserName</div>
+                        <span class="alert-success" style=" max-width: 200px; margin-top: 2rem">@Model.Date</span>
+                    </div>
+
+
+            @if (Model.Rating.HasValue)
+            {
+                        <div class="d-flex align-items-center mt-3">
+                            <h3 class="mr-2" style="margin-right: 0.5em; font-size:1.2rem">Rating Mediu:</h3>
+                            <div class="star-rating">
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        if (i <= Model.Rating.Value)
+                        {
+                            <i class="bi bi-star-fill" style="color: yellow; font-size: 1.9rem"></i>
+                        }
+                        else
+                        {
+                            <i class="bi bi-star" style="color: yellow;  font-size: 1.9rem"></i>
+                        }
+
+
+                    }
+                </div>
+                </div>
+            }
+          
+            </div>
+            </div>
+        </div>
+  
+}
+else
+{
+    <p>Modelul nu este inițializat.</p>
+}

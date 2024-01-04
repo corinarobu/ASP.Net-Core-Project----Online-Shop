@@ -1,0 +1,42 @@
+﻿@model Proiect.Models.Review
+
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Editare review</h2>
+<br />
+
+
+@using (Html.BeginForm(controllerName: "Reviews", actionName: "Edit",
+     method: FormMethod.Post, routeValues: new { id = Model.Id }))
+
+{
+    @Html.Label("Content", "Continut review")
+
+    <br />
+
+    @Html.Editor("Content", new { @class = "form-control" })
+    <br />
+
+    @Html.ValidationMessage("Content", null, new { @class = "text-danger" })
+
+    <br />
+    <br />
+
+    @Html.Label("Rating", "Rating (1-5)")
+    <br />
+    <input style="max-width: 80px" type="number" name="Rating" min="1" max="5" value="@Model.Rating" class="form-control" />
+    <br />
+    @Html.ValidationMessage("Rating", null, new { @class = "text-danger"})
+
+    <br />
+    <br />
+
+    <br />
+
+    <button class="btn  btn-primary" type="submit">Editeaza reviewul</button>
+
+}
+

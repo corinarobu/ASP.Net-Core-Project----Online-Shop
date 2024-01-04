@@ -1,0 +1,33 @@
+﻿@model Proiect.Models.Category
+@{
+    ViewBag.Title = "Afisare categorie";
+}
+
+
+<h2 style="color: grey; font-size: 2rem !important; font-weight: bold;">@ViewBag.Title</h2>
+
+
+
+@if (TempData["message"] != null)
+{
+    <div class="alert @ViewBag.Alert p-3 rounded-3 text-center mb-5">
+        @ViewBag.Message
+    </div>
+}
+
+<br />
+
+<p style="font-size: 1.7rem !important; font-weight:bold; color: green">@Model.CategoryName</p>
+
+
+    <form method="post" action="/Categories/Delete/@Model.Id">
+        <button class="btn btn-danger" type="submit">Sterge categoria</button>
+    </form>
+
+
+<br />
+<a class="btn btn-success alert-success" href="/Categories/Index/">Afisare lista categorii</a>
+
+<br />
+<br />
+

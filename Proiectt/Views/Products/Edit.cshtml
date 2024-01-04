@@ -1,0 +1,36 @@
+﻿@model Proiect.Models.Product
+
+@using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { id = Model.Id, enctype = "multipart/form-data" }))
+{
+    @Html.Label("Title","Titlu Produs");
+    @Html.EditorFor(m => m.Title, new { htmlAttributes = new { @class = "form-control"} })
+    @Html.ValidationMessageFor(m => m.Title, null, new { @class = "text-danger" })
+    <br />
+
+    @Html.Label("Description", "Descriere Produs")
+    <br />
+    @Html.Editor("Description", new { htmlAttributes = new { @class = "form-control" } })
+
+    @Html.ValidationMessageFor(m => m.Description, null, new { @class = "text-danger" })
+    <br />
+    <br />
+    <label>Selectati categoria</label>
+
+    @Html.DropDownListFor(m => m.CategoryId,
+             new SelectList(Model.Categ, "Value", "Text"),
+             "Selectati categoria", new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.CategoryId, null, new { @class = "text-danger" })
+    <br />
+    @Html.Label("Price","Pretul produsului");
+    @Html.Editor("Price",new{ htmlAttributes=new{@class="form-control"}})
+    @Html.ValidationMessageFor(m=>m.Price,null,new {@class="text-danger"})
+    <br />
+    <br />
+    <img src="@Model.Photo" alt="Nu exisata imagine pentru produs" style="width:10rem;">
+    <div class="form-group">
+        @Html.Label("ProductPhoto", "Selectati o imagine pentru a schimba imaginea curenta / adauga una.")
+        <input type="file" name="ProductPhoto" class="form-control-file" />
+
+    </div>
+    <button class="btn btn-success">Editeaza Produsul</button>
+}

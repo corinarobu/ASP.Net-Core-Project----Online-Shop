@@ -1,0 +1,46 @@
+﻿@model Proiect.Models.Product
+
+@using (Html.BeginForm("New", "Products", FormMethod.Post, new { enctype = "multipart/form-data", @class = "needs-validation", novalidate = "true" }))
+{
+    <div class="container mt-5">
+        <h2 class="text-center" style ="font-size: 2rem !important; color: grey;">Adaugare Produs Nou</h2>
+
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+        <div class="mb-3">
+            @Html.Label("Title", "Titlul produsului (se recomanda sa fie prolix)", new { @class = "form-label" })
+            @Html.TextBox("Title", null, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessage("Title", null, new { @class = "text-danger" })
+        </div>
+
+        <div class="mb-3">
+            @Html.Label("Description", "Descrierea Tehnica a produsului", new { @class = "form-label" })
+            @Html.TextArea("Description", null, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessage("Description", null, new { @class = "text-danger" })
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Selectati categoria</label>
+            @Html.DropDownListFor(m => m.CategoryId, new SelectList(Model.Categ, "Value", "Text"), "Selectati Categoria", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessage("CategoryId", null, new { @class = "text-danger" })
+        </div>
+
+        <div class="mb-3">
+            @Html.Label("Price", "Introduceti pretul", new { @class = "form-label" })
+            <div class="input-group">
+                <span class="input-group-text">RON</span>
+                @Html.TextBox("Price", null, new { @class = "form-control", type = "number", step = "0.1", min = "0", required = "required" })
+            </div>
+            @Html.ValidationMessage("Price", null, new { @class = "text-danger" })
+        </div>
+
+
+        <div class="mb-3">
+            <label class="form-label">Selectați imaginea</label>
+            <input type="file" name="ProductPhoto" class="form-control-file" required="required" />
+        </div>
+
+        <br />
+        <button class="btn btn-success" type="submit">Adauga produs</button>
+    </div>
+}

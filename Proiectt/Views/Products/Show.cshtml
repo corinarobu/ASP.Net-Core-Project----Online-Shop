@@ -1,0 +1,107 @@
+﻿@model Proiect.Models.Product
+
+@if (TempData["message"] != null)
+{
+    <div class="alert @ViewBag.Alert p-3 rounded-3 text-center mb-5">
+        @ViewBag.Message
+    </div>
+}
+
+
+<div class="card" style="padding: 1em">
+    @Html.Partial("_ProductInfo", Model)
+
+    <div class="position-absolute top-0 end-0 p-3">
+        <form method="post" asp-controller="Products" asp-action="AddProduct">
+            <input type="hidden" name="ProductId" value="@Model.Id" />
+            <button type="submit" class="btn btn-primary  alert-primary">Adauga acest produs in cos</button>
+        </form>
+    </div>
+
+
+    <div class="d-flex justify-content-around">
+        @if ((Model.ApplicationUserId == ViewBag.UserId && ViewBag.IsEditor) || ViewBag.IsAdmin)
+        {
+            <a href="/Products/Edit/@Model.Id" class="btn btn-success">Editeaza Produsul</a>
+            <form method="post" action="/Products/Delete/@Model.Id">
+                <button type="submit" class="btn btn-danger">Sterge Produsul</button>
+            </form>
+        }
+        @if (ViewBag.CanToggleStatus == true)
+        {
+            if (Model.Active == true)
+            {
+                <form method="post" action="/Products/Pending/@Model.Id">
+                    <button type="submit" class="btn btn-danger">Dezactiveaza afisarea</button>
+                </form>
+            }
+            else
+            {
+                <form method="Post" action="/Products/Pending/@Model.Id">
+                    <button type="submit" class="btn btn-danger">Aproba produsul</button>
+                </form>
+            }
+        }
+    </div>
+
+</div>
+
+<br />
+<br />
+
+<div class="container mt-5" style="max-width:50%; margin-left:0">
+    <h3 class="text-primary" style="font-size:2rem !important">Comentarii clienti</h3>
+
+    @foreach (Review rev in Model.Reviews)
+    {
+        <div class="card mb-3">
+            <div class="card-body">
+                <p class="card-text">@rev.Content</p>
+                <p class="card-text"><i>Nota: </i>@rev.Rating</p>
+                <small>@rev.Date</small>
+                <strong><i class="bi bi-person"></i>@rev.ApplicationUser.UserName</strong>
+
+                @if (rev.ApplicationUserId == ViewBag.UserId || ViewBag.IsAdmin)
+                {
+                    <div class="d-flex mt-3">
+                        <div class="me-2">
+                            <a class="btn btn-outline-primary" href="/Reviews/Edit/@rev.Id"><i class="bi bi-pencil-square"></i> Editeaza</a>
+                        </div>
+                        <div>
+                            <form method="post" action="/Reviews/Delete/@rev.Id">
+                                <button class="btn btn-outline-danger" type="submit"><i class="bi bi-trash"></i> Sterge</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+
+    <h3 class="text-success mt-5" style="font-size:1.3rem !important">Lasa un comentariu! </h3>
+    <div class="card mt-2">
+    
+        <div class="card-body">
+            <form method="post" action="/Products/Show/@Model.Id">
+
+                <input type="hidden" name="ProductId" value="@Model.Id" />
+
+             
+                <div class="mb-3" >
+                    <label class="form-label">Continut review</label>
+                    @Html.TextArea("Content", null, new { @class = "summernote form-control" })
+                    @Html.ValidationMessage("Content", null, new { @class = "text-danger" })
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Rating (1-5)</label>
+                    <input style="max-width: 80px" type="number" name="Rating" min="1" max="5" value="@Model.Rating" class="form-control" />
+                    @Html.ValidationMessage("Rating", null, new { @class = "text-danger" })
+                </div>
+
+                <button class="btn btn-success" type="submit">Adauga reviewul</button>
+            </form>
+        </div>
+    </div>
+</div>

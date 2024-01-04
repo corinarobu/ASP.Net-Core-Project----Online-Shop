@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+
+<br />
+
+<div class="text-center">
+        <img src="~/images/logo/1.png" alt="Logo WAMAZON" style="max-width: 300px; margin-right: 10px;" />
+</div>
+
+<br />
+
+@if (TempData["message"] != null)
+{
+    <div class="alert @ViewBag.Alert p-3 rounded-3 text-center mb-5">
+        @ViewBag.Message
+    </div>
+}
+
+<br />
+
+<form method="GET" class="mb-3">
+    <div class="input-group">
+        <input type="text" class="form-control"
+               placeholder="Search topics or keywords" name="search"
+               value="@ViewBag.SearchString">
+        <button class="btn btn-outline-success"
+                type="submit">
+            Search
+        </button>
+    </div>
+</form>
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <label class="form-label">Sort By:</label>
+        <a class="btn btn-outline-secondary" href="?sortOrder=Price&sortDirection=asc">Pret <i class="bi bi-arrow-up"></i></a>
+        <a class="btn btn-outline-secondary" href="?sortOrder=Price&sortDirection=desc">Pret <i class="bi bi-arrow-down"></i></a>
+        <a class="btn btn-outline-secondary" href="?sortOrder=Rating&sortDirection=asc">Rating <i class="bi bi-arrow-up"></i></a>
+        <a class="btn btn-outline-secondary" href="?sortOrder=Rating&sortDirection=desc">Rating <i class="bi bi-arrow-down"></i></a>
+
+    </div>
+
+</div>
+
+<div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link"
+                   href="@ViewBag.PaginationBaseUrl=1&sortOrder=@ViewBag.SortOrder&sortDirection=@ViewBag.SortDirection" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            @for (int i = 1; i <= ViewBag.lastPage; i++)
+            {
+                <li class="page-item">
+                    <a class="page-link"
+                       href="@ViewBag.PaginationBaseUrl=@i&sortOrder=@ViewBag.SortOrder&sortDirection=@ViewBag.SortDirection">@(i)</a>
+                </li>
+            }
+            <li class="page-item">
+                <a class="page-link"
+                   href="@ViewBag.PaginationBaseUrl=@(ViewBag.lastPage)&sortOrder=@ViewBag.SortOrder&sortDirection=@ViewBag.SortDirection" aria-
+                   label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+@foreach (Proiect.Models.Product product in ViewBag.Products)
+{
+    <div class="card">
+
+        @Html.Partial("_ProductInfo", product )
+        <a class="btn btn-success" href="/Products/Show/@product.Id">Afisare produs</a>
+
+    </div>
+
+    <br />
+    <br />
+}

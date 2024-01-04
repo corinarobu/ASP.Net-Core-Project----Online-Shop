@@ -1,0 +1,42 @@
+﻿@model Proiect.Models.ApplicationUser
+
+@using (Html.BeginForm(actionName: "Edit", controllerName: "Users", method: FormMethod.Post, routeValues: new { id = Model.Id }))
+{
+    <div class="form-group">
+        <label for="UserName"><i class="bi bi-person"></i> Nume utilizator</label>
+        <br />
+        @Html.EditorFor(m => m.UserName, new { @class = "form-control", style = "padding: 8px; margin-bottom: 10px;" })
+    </div>
+
+    <div class="form-group">
+        <label for="Email"><i class="bi bi-envelope"></i> Email utilizator</label>
+        <br />
+        @Html.EditorFor(m => m.Email, new { @class = "form-control", style = "padding: 8px; margin-bottom: 10px;" })
+    </div>
+
+    <div class="form-group">
+        <label for="PhoneNumber"><i class="bi bi-phone"></i> Număr telefon</label>
+        <br />
+        @Html.EditorFor(m => m.PhoneNumber, new { @class = "form-control", style = "padding: 8px; margin-bottom: 10px;" })
+    </div>
+
+    <div class="form-group">
+        <label for="FirstName"><i class="bi bi-person"></i> Nume utilizator</label>
+        <br />
+        @Html.EditorFor(m => m.FirstName, new { @class = "form-control", style = "padding: 8px; margin-bottom: 10px;" })
+    </div>
+
+    <div class="form-group">
+        <label for="LastName"><i class="bi bi-person"></i> Prenume utilizator</label>
+        <br />
+        @Html.EditorFor(m => m.LastName, new { @class = "form-control", style = "padding: 8px; margin-bottom: 10px;" })
+    </div>
+
+    <div class="form-group">
+        <label for="newRole"><i class="bi bi-card-list"></i> Selectați rolul</label>
+        <br />
+        @Html.DropDownList("newRole", new SelectList(Model.AllRoles, "Value", "Text", ViewBag.UserRole), null, new { @class = "form-control", style = "padding: 8px; margin-bottom: 10px;" })
+    </div>
+
+    <button class="btn btn-sm btn-success" type="submit">Editare user</button>
+}
